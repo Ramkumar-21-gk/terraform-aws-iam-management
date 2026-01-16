@@ -1,0 +1,7 @@
+users:
+  - username: vagena
+    role: admin
+  - username: eleven
+    role: developer
+  - username: hopper
+    role: QA  
