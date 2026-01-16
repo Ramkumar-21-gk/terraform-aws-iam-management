@@ -12,9 +12,14 @@ provider "aws" {
 }
 
 locals {
-  user_data = yamldecode(file("./users.yaml"))
+  user_data = yamldecode(file("./users.yaml")).users
 }
 
 output "name" {
-  value = local.user_data
+  value = local.user_data[*].username
+}
+
+resource "aws_iam_user" "main" {
+  for_each = toset(local.user_data[*].username)
+  name     = each.value
 }
