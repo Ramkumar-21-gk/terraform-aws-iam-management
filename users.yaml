@@ -1,7 +1,7 @@
 users:
   - username: vagena
-    role: admin
+    role: [AmazonEC2FullAccess]
   - username: eleven
-    role: developer
+    role: [AmazonS3ReadOnlyAccess]
   - username: hopper
-    role: QA  
+    role: [AmazonS3ReadOnlyAccess,AmazonEC2FullAccess]

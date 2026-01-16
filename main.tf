@@ -19,15 +19,15 @@ output "name" {
   value = local.user_data[*].username
 }
 
-resource "aws_iam_user" "main" {
+resource "aws_iam_user" "users" {
   for_each = toset(local.user_data[*].username)
   name     = each.value
 }
 
 resource "aws_iam_user_login_profile" "example" {
-  for_each        = aws_iam_user.main
+  for_each        = aws_iam_user.users
   user            = each.value.name
-  password_length = 12
+  password_length = 16
 
   lifecycle {
     ignore_changes = [
@@ -36,4 +36,10 @@ resource "aws_iam_user_login_profile" "example" {
       pgp_key,
     ]
   }
+}
+
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
 }
